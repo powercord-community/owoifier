@@ -7,6 +7,7 @@ function owoifyText(v){
     .replace(/(?:R|L)/g, "W")
     .replace(/(n)([aeiou])/gi, '$1y$2')
     .replace(/ove/g, "uv")
+	.replace(/th/g, "ff")
     .replace(/\!+/g, " " + faces[Math.floor(Math.random() * faces.length)] + " ");
 }
 
