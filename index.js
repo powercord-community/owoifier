@@ -13,7 +13,7 @@ function owoifyText(v){
 module.exports = class Owoify extends Plugin {
   startPlugin () {
     this.registerCommand(
-      'owo',
+      'owoify',
       [],
       'owoify your message...',
       '{c} [ text to owoify ]',
