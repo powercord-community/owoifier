@@ -19,7 +19,7 @@ module.exports = class Owoify extends Plugin {
       '{c} [ text to owoify ]',
       (args) => ({
         send: true,
-        result: OwoifyText(args.join(' '))
+        result: owoifyText(args.join(' '))
       })
     );
   }
