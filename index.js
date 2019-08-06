@@ -1,6 +1,6 @@
 const { Plugin } = require('powercord/entities');
 
-let faces = ["(・`ω´・)", ";;w;;", "owo", "UwU", ">w<", "^w^"];
+const faces = ["(・`ω´・)", ";;w;;", "owo", "UwU", ">w<", "^w^"];
 function owoifyText(v){
 	return v
     .replace(/(?:r|l)/g, "w")
