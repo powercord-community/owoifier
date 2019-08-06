@@ -18,7 +18,7 @@ module.exports = class owoify extends Plugin {
       'owo',
       [],
       'owoify your message...',
-      '{c} [ text to leet ]',
+      '{c} [ text to owoify ]',
       (args) => ({
         send: true,
         result: OwoifyText(args.join(' '))
