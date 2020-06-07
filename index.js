@@ -32,7 +32,7 @@ module.exports = class Owoify extends Plugin {
     powercord.api.commands.registerCommand({
       command: 'owoifyauto',
       description: `owoify all of your messages`,
-      executor: this.toggleAuto()
+      executor: this.toggleAuto.bind(this)
     });
   }    
   
