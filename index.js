@@ -32,7 +32,7 @@ module.exports = class Owoify extends Plugin {
     powercord.api.commands.registerCommand({
       command: 'owoifyauto',
       description: `owoify all of your messages`,
-      executor: this.toggleAuto.bind(this)
+      executor: this.toggleAuto()
     });
   }    
   
@@ -58,7 +58,7 @@ module.exports = class Owoify extends Plugin {
     owoifierToggle = !owoifierToggle;
     powercord.api.notices.sendToast('owoifyNotif', {
       header: `Owoify Auto Status`,
-      content: `${(owoifierToggle == true) ? 'Its weady to go >w<' : 'Ok chill chill we are back to normal again.'}`,
+      content: `${(owoifierToggle == true) ? 'Its weady to go >w<' : 'Ok chill we are back to normal again.'}`,
       buttons: [{
         text: 'Dismiss',
         color: 'red',
