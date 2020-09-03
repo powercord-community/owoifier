@@ -7,7 +7,6 @@ let owoifierAutoToggle = false;
 
 module.exports = class Owoify extends Plugin { 
   async startPlugin () {
-    this.injection();
     powercord.api.settings.registerSettings(this.entityID, {
       category: this.entityID,
       label: 'Owoifier',
@@ -35,6 +34,16 @@ module.exports = class Owoify extends Plugin {
         return output;
     }
 
+    const messageEvents = await getModule(["sendMessage"]);
+    inject("owoifierSend", messageEvents, "sendMessage", function(args) {
+      if(owoifierAutoToggle) {
+        let text = args[1].content;
+        text = owoifyText(text);
+        args[1].content = text;      
+      }      
+      return args;  
+    }, true);
+
     powercord.api.commands.registerCommand({
       command: 'owoify',
       description: 'owoify your message',
@@ -48,18 +57,6 @@ module.exports = class Owoify extends Plugin {
     });    
   }
   
-  async injection() {
-    const messageEvents = await getModule(["sendMessage"]);
-    inject("owoifierSend", messageEvents, "sendMessage", function(args) {
-      if(owoifierAutoToggle) {
-        let text = args[1].content;
-        text = owoifyText(text);
-        args[1].content = text;      
-      }      
-      return args;  
-    }, true);
-  }
-
   pluginWillUnload() {
     powercord.api.settings.unregisterSettings(this.entityID);
     uninject("owoifierSend"); 
