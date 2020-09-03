@@ -42,7 +42,7 @@ module.exports = class OwoifierSettings extends React.PureComponent {
         const { getSetting, toggleSetting, updateSetting } = this.props;
         //Faces = defFaces; //is there a way to reset the settings ??
         Faces = getSetting('owoifierFaces');
-        if(Faces.length < 1) { // if faces is empty, copy default faces to faces 
+        if(Faces == null) { // if faces is empty, copy default faces to faces 
           updateSetting('owoifierFaces',defFaces);
           Faces = getSetting('owoifierFaces');
         }        
