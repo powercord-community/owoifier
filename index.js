@@ -19,19 +19,26 @@ module.exports = class Owoify extends Plugin {
     const getSetting = (setting, defaultValue) => this.settings.get(setting, defaultValue);
 
     function owoifyText(v) {
-      let toggleFaces = getSetting('enableFaces');
-      let output = v
-        .replace(/(?:r|l)/g, "w")
-        .replace(/(?:R|L)/g, "W")
-        .replace(/(n)([aeiou])/gi, '$1y$2')
-        .replace(/ove/g, "uv")
-        .replace(/th/g, "ff");
+      try {
+        new URL(v)
+      } catch {
+        let toggleFaces = getSetting('enableFaces');
+        let output = v
+          .replace(/(?:r|l)/g, "w")
+          .replace(/(?:R|L)/g, "W")
+          .replace(/(n)([aeiou])/gi, '$1y$2')
+          .replace(/ove/g, "uv")
+          .replace(/th/g, "ff");
+  
+          if (toggleFaces) {
+            let faceList = getSetting('owoifierFaces');
+            output = output.replace(/\!+/g, " " + faceList[Math.floor(Math.random() * faceList.length)].name + " ");
+          }
+  
+          return output;
+      }
 
-        if (toggleFaces) {
-          let faceList = getSetting('owoifierFaces');
-          output = output.replace(/\!+/g, " " + faceList[Math.floor(Math.random() * faceList.length)].name + " ");
-        }
-        return output;
+      return v
     }
 
     const messageEvents = await getModule(["sendMessage"]);
