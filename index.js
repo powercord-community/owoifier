@@ -26,7 +26,7 @@ module.exports = class Owoify extends Plugin {
 
       for (let index = 0; index < words.length; index++) {
         const element = words[index];
-        if (!element.startsWith('@') && !element.startsWith('@!') && !element.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
+        if (!element.startsWith('<@') && !element.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
           let format_string = element
           .replace(/(?:r|l)/g, "w")
           .replace(/(?:R|L)/g, "W")
@@ -35,8 +35,8 @@ module.exports = class Owoify extends Plugin {
           .replace(/th/g, "ff");
 
           if (toggleFaces) {
-            let faceList = getSetting('owoifierFaces');
-            format_string = format_string.replace(/\!+/g, " " + faceList[Math.floor(Math.random() * faceList.length)].name + " ");
+            let faceList = getSetting('owoifierFaces');            
+            format_string = format_string.replace(/\!+/g, " " + faceList[Math.floor(Math.random() * faceList.length)].name + " ");            
           }
 
           output += format_string + ' '
