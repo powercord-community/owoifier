@@ -19,33 +19,19 @@ module.exports = class Owoify extends Plugin {
     const getSetting = (setting, defaultValue) => this.settings.get(setting, defaultValue);
 
     function owoifyText(v) {
-      var words = v.split(' ');
-      var output = '';
-
       let toggleFaces = getSetting('enableFaces');
+      let output = v
+        .replace(/(?:r|l)/g, "w")
+        .replace(/(?:R|L)/g, "W")
+        .replace(/(n)([aeiou])/gi, '$1y$2')
+        .replace(/ove/g, "uv")
+        .replace(/th/g, "ff");
 
-      for (let index = 0; index < words.length; index++) {
-        const element = words[index];
-        if (!element.startsWith('@') && !element.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
-          let format_string = element
-          .replace(/(?:r|l)/g, "w")
-          .replace(/(?:R|L)/g, "W")
-          .replace(/(n)([aeiou])/gi, '$1y$2')
-          .replace(/ove/g, "uv")
-          .replace(/th/g, "ff");
-
-          if (toggleFaces) {
-            let faceList = getSetting('owoifierFaces');
-            format_string = format_string.replace(/\!+/g, " " + faceList[Math.floor(Math.random() * faceList.length)].name + " ");
-          }
-
-          output += format_string + ' '
-        } else {
-          output += element + ' '
+        if (toggleFaces) {
+          let faceList = getSetting('owoifierFaces');
+          output = output.replace(/\!+/g, " " + faceList[Math.floor(Math.random() * faceList.length)].name + " ");
         }
-      }
-
-      return output
+        return output;
     }
 
     const messageEvents = await getModule(["sendMessage"]);
