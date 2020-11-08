@@ -47,6 +47,21 @@ module.exports = class OwoifierSettings extends React.PureComponent {
           Faces = getSetting('owoifierFaces');
         }        
         return <> 
+        <FormTitle tag='h2'>Button</FormTitle>
+        <SwitchItem
+        note="Whether the button should enabled or not."
+        value={getSetting('buttonEnabled', true)}
+        onChange={() => toggleSetting('buttonEnabled')}
+      >
+        Enable
+      </SwitchItem>
+      <SwitchItem
+        note="Whether the button should be at the left of the list of buttons."
+        value={getSetting('buttonPos', false)}
+        onChange={() => toggleSetting('buttonPos')}
+      >
+        Button end of the list
+      </SwitchItem>
         <FormTitle tag='h2'>Faces</FormTitle>
         <SwitchItem
         note="Enable this if you want your '!' to change to randomly selected cute faces listed below."
@@ -63,9 +78,9 @@ module.exports = class OwoifierSettings extends React.PureComponent {
               placeholder={`Face #${idx + 1}`}
               defaultValue={face.name}
               onChange={val => {updateSetting('owoifierFaces', this.handleFacesListChange(idx,val))}}
-              onClick={() => {updateSetting('owoifierFaces', this.handleRemoveFaces(idx))}}
-              text="Remove"
-              icon="fal fa-minus"
+              buttonOnClick={() => {updateSetting('owoifierFaces', this.handleRemoveFaces(idx))}}
+              buttonText="Remove"
+              buttonIcon="fal fa-minus"
             />
           </div>
         ))}
