@@ -1,12 +1,15 @@
 const { Plugin } = require('powercord/entities');
 const { getModule, React } = require('powercord/webpack');
 const { inject, uninject} = require('powercord/injector');
+const { findInReactTree } = require('powercord/util');
 
 const Settings = require('./components/Settings');
+const Button = require('./components/Button');
 let owoifierAutoToggle = false;
 
 module.exports = class Owoify extends Plugin { 
   async startPlugin () {
+    this.addButton();
     powercord.api.settings.registerSettings(this.entityID, {
       category: this.entityID,
       label: 'Owoifier',
@@ -47,7 +50,7 @@ module.exports = class Owoify extends Plugin {
 
       return output
     }
-
+    
     const messageEvents = await getModule(["sendMessage"]);
     inject("owoifierSend", messageEvents, "sendMessage", function(args) {
       if(owoifierAutoToggle) {
@@ -71,11 +74,51 @@ module.exports = class Owoify extends Plugin {
     });    
   }
   
+  addButton() {    
+    const ChannelTextAreaContainer = getModule(
+        m =>
+            m.type &&
+            m.type.render &&
+            m.type.render.displayName === "ChannelTextAreaContainer",
+        false
+    );
+
+    inject(
+        "owoifierButton",
+        ChannelTextAreaContainer.type,
+        "render",
+        (args, res) => {
+            const props = findInReactTree(
+                res,
+                r => r && r.className && r.className.indexOf("buttons-") === 0
+            );
+
+            const element = React.createElement(
+                "div",
+                {
+                    className: ".owoifierButton",
+                    onClick: () => this.toggleAuto(),
+                },
+                React.createElement(Button)
+            );
+            
+            const btnEnb = this.settings.get("buttonEnabled", true);
+            const posSetting = this.settings.get("buttonPos", false);
+            if(btnEnb) {posSetting ? props.children.push(element) : props.children.unshift(element);}
+            return res;
+        }
+    );
+    ChannelTextAreaContainer.type.render.displayName = "ChannelTextAreaContainer";
+}
+
   pluginWillUnload() {
     powercord.api.settings.unregisterSettings(this.entityID);
     uninject("owoifierSend"); 
     powercord.api.commands.unregisterCommand('owoifyauto');   
     powercord.api.commands.unregisterCommand('owoify');   
+    uninject("owoifierButton");
+    const button = document.querySelector('.owoifierButton');
+    if(button) button.remove();
   }
 
   toggleAuto () {
