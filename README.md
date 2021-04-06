@@ -1,11 +1,18 @@
 # Owoifier
 A Powercord plugin to change your message with a ~~cute~~ weeb one
 
-### Commands
-`{yourPowercordPrefix}owoify message` - owoifies your message and sends it.
+## Changelog
+### v2.0.0
 
-`{yourPowercordPrefix}owoifyauto` - welcome to the future where you can make it so all your messages get owoified.
+Now uses an actual library! big thanks to [foobball](https://github.com/foobball)
 
-### Installation
+And new settings.
+
+## Commands
+`{yourPowercordPrefix}owo message` - owoifies your message and sends it.
+
+`{yourPowercordPrefix}toggleowo` - welcome to the future where you can make it so all your messages get owoified.
+
+## Installation
 1. Clone this repository into your Powercord plugins folder using `git clone https://github.com/powercord-community/owoifier.git`
 2. Reload Discord using `Ctrl + R`
