@@ -23,11 +23,12 @@ module.exports = class Owoify extends Plugin {
         function owoifyText(v) {
             var words = v.split(' ');
             var output = '';
+            var level = this.settings.get('owoLevel');
 
             for (let index = 0; index < words.length; index++) {
                 const element = words[index];
                 if (!element.startsWith('<@') && !element.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
-                    let format_string = owoify(element, 'uvu')
+                    let format_string = owoify(element, level)
                         .replace(/`/g, '\\`')
                         .replace(/\*/g, '\\*');
 
