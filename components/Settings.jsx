@@ -19,9 +19,9 @@ module.exports = class OwoifierSettings extends React.PureComponent {
         <SwitchItem
         note="Whether the button should enabled or not."
         value={ this.state.buttonEnabled }
-        onChange={ e => {
-          this.setState({ buttonEnabled: e.value });
-          this.props.updateSetting('buttonEnabled', e.value);          
+        onChange={ () => {
+          this.setState({ buttonEnabled: !buttonEnabled });
+          this.props.toggleSetting('buttonEnabled');          
         }}
       >
         Enable
@@ -29,9 +29,9 @@ module.exports = class OwoifierSettings extends React.PureComponent {
       <SwitchItem
         note="Whether the button should be at the left of the list of buttons."
         value={ this.state.buttonPos }
-        onChange={ e => {
-          this.setState({ buttonPos: e.value });
-          this.props.updateSetting('buttonPos', e.value);
+        onChange={ () => {
+          this.setState({ buttonPos: !buttonPos });
+          this.props.toggleSetting('buttonPos');
         }}
       >
         Button end of the list
