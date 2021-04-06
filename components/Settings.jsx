@@ -49,9 +49,9 @@ module.exports = class OwoifierSettings extends React.PureComponent {
         value={ this.state.owoLevel }
         note={<>
           <p>
-            owo: oh dear gwod pwalase help mwe, save mwe fwom this heww that is owo
-            uwu: oh deaw gwod pwease hewp mwe (・`ω´・) sawe mwe fwom fwis heww dat is uwu
-            uvu: owoh deaw gwod pwease hewp mwe ＼(＾▽＾)／ sawe mwe fwowom fwis heww dat is uvu            
+            owo: oh dear gwod pwalase help mwe, save mwe fwom this heww that is owo <br></br>
+            uwu: oh deaw gwod pwease hewp mwe (・`ω´・) sawe mwe fwom fwis heww dat is uwu <br></br>
+            uvu: owoh deaw gwod pwease hewp mwe ＼(＾▽＾)／ sawe mwe fwowom fwis heww dat is uvu <br></br>        
           </p>
         </>}
         onChange={ e => {
