@@ -20,7 +20,8 @@ module.exports = class OwoifierSettings extends React.PureComponent {
         note="Whether the button should enabled or not."
         value={ this.state.buttonEnabled }
         onChange={ e => {
-          this.setState({ buttonEnabled: e.value });         
+          this.setState({ buttonEnabled: e.value });
+          this.props.updateSetting('buttonEnabled', e.value);          
         }}
       >
         Enable
@@ -30,6 +31,7 @@ module.exports = class OwoifierSettings extends React.PureComponent {
         value={ this.state.buttonPos }
         onChange={ e => {
           this.setState({ buttonPos: e.value });
+          this.props.updateSetting('buttonPos', e.value);
         }}
       >
         Button end of the list
