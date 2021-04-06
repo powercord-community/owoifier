@@ -22,8 +22,8 @@ module.exports = class Owoify extends Plugin {
 
         function owoifyText(v) {
             var words = v.split(' ');
-            var output = '';
-            var level = this.settings.get('owoLevel');
+            var output = '';            
+            var level = this.settings.get('owoLevel','owo');
 
             for (let index = 0; index < words.length; index++) {
                 const element = words[index];
