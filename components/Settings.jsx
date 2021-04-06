@@ -1,6 +1,6 @@
 const { React } = require('powercord/webpack');
 const { FormTitle } = require('powercord/components');
-const { SwitchItem } = require('powercord/components/settings');
+const { SwitchItem, RadioGroup } = require('powercord/components/settings');
 
 module.exports = class OwoifierSettings extends React.PureComponent {  
     constructor(props) {
