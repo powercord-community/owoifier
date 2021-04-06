@@ -5,6 +5,7 @@ A Powercord plugin to change your message with a ~~cute~~ weeb one
 ### v2.0.0
 
 Now uses an actual library! big thanks to [foobball](https://github.com/foobball)
+
 And new settings.
 
 ## Commands
