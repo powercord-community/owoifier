@@ -51,7 +51,8 @@ module.exports = class OwoifierSettings extends React.PureComponent {
           <p>
             owo: oh dear gwod pwalase help mwe, save mwe fwom this heww that is owo <br></br>
             uwu: oh deaw gwod pwease hewp mwe (・`ω´・) sawe mwe fwom fwis heww dat is uwu <br></br>
-            uvu: owoh deaw gwod pwease hewp mwe ＼(＾▽＾)／ sawe mwe fwowom fwis heww dat is uvu <br></br>        
+            uvu: owoh deaw gwod pwease hewp mwe ＼(＾▽＾)／ sawe mwe fwowom fwis heww dat is uvu <br></br>
+            this is handled by <a href="https://www.npmjs.com/package/owoify-js" >owoify-js</a>.
           </p>
         </>}
         onChange={ e => {
