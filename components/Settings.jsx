@@ -9,12 +9,24 @@ module.exports = class OwoifierSettings extends React.PureComponent {
         this.state = { 
             buttonPos: this.props.getSetting('buttonPos', false),
             buttonEnabled: this.props.getSetting('buttonEnabled', true),
-            owoLevel: this.props.getSetting('owoLevel','owo')
+            owoLevel: this.props.getSetting('owoLevel','owo'),
+            owoEnabled: this.props.getSetting('owoEnabled', false)
         }
     }
 
     render() {
         return <> 
+        <FormTitle tag='h2'>Owo Toggle</FormTitle>
+        <SwitchItem
+        note="Auto owoify toggle."
+        value={ this.state.owoEnabled }
+        onChange={ () => {
+          this.setState({ owoEnabled: !this.state.owoEnabled });
+          this.props.toggleSetting('owoEnabled');          
+        }}
+      >
+        Enable
+      </SwitchItem>
         <FormTitle tag='h2'>Button</FormTitle>
         <SwitchItem
         note="Whether the button should enabled or not."
