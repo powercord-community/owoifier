@@ -2,6 +2,12 @@
 A Powercord plugin to change your message with a ~~cute~~ weeb one
 
 ## Changelog
+### v2.1.0
+
+Removed chatbar button.
+No longer sends a toast on `toggleowo`.
+Added a toggle for auto owo in settings.
+
 ### v2.0.0
 
 Now uses an actual library! big thanks to [foobball](https://github.com/foobball)
