@@ -6,9 +6,7 @@ module.exports = class OwoifierSettings extends React.PureComponent {
     constructor(props) {
         super(props)
 
-        this.state = { 
-            buttonPos: this.props.getSetting('buttonPos', false),
-            buttonEnabled: this.props.getSetting('buttonEnabled', true),
+        this.state = {
             owoLevel: this.props.getSetting('owoLevel','owo'),
             owoEnabled: this.props.getSetting('owoEnabled', false)
         }
@@ -26,28 +24,7 @@ module.exports = class OwoifierSettings extends React.PureComponent {
         }}
       >
         Enable
-      </SwitchItem>
-        <FormTitle tag='h2'>Button</FormTitle>
-        <SwitchItem
-        note="Whether the button should enabled or not."
-        value={ this.state.buttonEnabled }
-        onChange={ () => {
-          this.setState({ buttonEnabled: !this.state.buttonEnabled });
-          this.props.toggleSetting('buttonEnabled');          
-        }}
-      >
-        Enable
-      </SwitchItem>
-      <SwitchItem
-        note="Whether the button should be at the left of the list of buttons."
-        value={ this.state.buttonPos }
-        onChange={ () => {
-          this.setState({ buttonPos: !this.state.buttonPos });
-          this.props.toggleSetting('buttonPos');
-        }}
-      >
-        Button end of the list
-      </SwitchItem>
+      </SwitchItem>        
       <RadioGroup
         disabled={ false }
         options={ [
