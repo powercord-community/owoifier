@@ -13,8 +13,7 @@ module.exports = class OwoifierSettings extends React.PureComponent {
     }
 
     render() {
-        return <> 
-        <FormTitle tag='h2'>Owo Toggle</FormTitle>
+        return <>
         <SwitchItem
         note="Auto owoify toggle."
         value={ this.state.owoEnabled }
