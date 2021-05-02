@@ -41,7 +41,7 @@ module.exports = class Owoify extends Plugin {
 
         const messageEvents = await getModule(["sendMessage"]);
         inject("owoifierSend", messageEvents, "sendMessage", function(args) {
-            if (parentThis.settings.get('owoEnabled', false)) {
+            if (parentThis.settings.get('owoEnabled', false) && !args[1].content.startsWith(powercord.api.commands.prefix)) {
                 let text = args[1].content;
                 text = owoifyText(text);
                 args[1].content = text;
