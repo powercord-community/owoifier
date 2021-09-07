@@ -2,16 +2,21 @@
 A Powercord plugin to change your message with a ~~cute~~ weeb one
 
 ## Changelog
+### v2.1.1
+
+Added a option to not owoify code blocks, you can toggle it in plugin settings.  
+No longer owoifies channel/emoji/everyone/here mentions.  
+This release has been brought to you by [Sammy](https://github.com/SammyWhamy).
+
 ### v2.1.0
 
-Removed chatbar button.
-No longer sends a toast on `toggleowo`.
-Added a toggle for auto owo in settings.
+Removed chatbar button.  
+No longer sends a toast on `toggleowo`.  
+Added a toggle for auto owo in settings.  
 
 ### v2.0.0
 
-Now uses an actual library! big thanks to [foobball](https://github.com/foobball)
-
+Now uses an actual library! big thanks to [foobball](https://github.com/foobball)  
 And new settings.
 
 ## Commands
