@@ -15,28 +15,27 @@ module.exports = class Owoify extends Plugin {
                 ...props
             })
         });
-        
+
         let parentThis = this;
 
+	    const channelReg = /^<#(?<id>\d{17,19})>$/;
+	    const emojiReg = /<a?:\w{2,32}:\d{17,18}>/;
+	    const roleReg = /^<@&(?<id>\d{17,19})>$/;
+	    const userReg = /^<@!?(?<id>\d{17,19})>$/;
+	    const linkReg = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g;
+	    const dMentionReg = /^(@everyone|@here)$/
+	    function isMentionOrLink(s) {
+		    return channelReg.test(s) || emojiReg.test(s) || roleReg.test(s) || userReg.test(s) || linkReg.test(s) || dMentionReg.test(s);
+	    }
+
+        function isCodeBlock(s) {
+            return (s.startsWith("```") && s.endsWith("```")) || s.startsWith("`") || s.endsWith("`")
+        }
+
         function owoifyText(v) {
-            var words = v.split(' ');
-            var output = '';            
             const level = parentThis.settings.get('owoLevel','owo');
-
-            for (let index = 0; index < words.length; index++) {
-                const element = words[index];
-                if (!element.startsWith('<@') && !element.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g)) {
-                    let format_string = owoify(element, level)
-                        .replace(/`/g, '\\`')
-                        .replace(/\*/g, '\\*');
-
-                    output += format_string + ' '
-                } else {
-                    output += element + ' '
-                }
-            }
-
-            return output
+            const keepCodeBlocks = parentThis.settings.get('keepCodeBlocks', true);
+            return v.split(/ +/).map((s) => (keepCodeBlocks && isCodeBlock(s)) || isMentionOrLink(s) ? s : owoify(s, level).replace(/`/g, '\\`').replace(/\*/g, '\\*')).join(' ');
         }
 
         const messageEvents = await getModule(["sendMessage"]);
@@ -59,7 +58,7 @@ module.exports = class Owoify extends Plugin {
             command: 'toggleowo',
             description: `owoify all of your messages`,
             executor: () => {
-                let owoifierAutoToggle = this.settings.get('owoEnabled', false); 
+                let owoifierAutoToggle = this.settings.get('owoEnabled', false);
                 this.settings.set('owoEnabled', !owoifierAutoToggle);
             }
         });
@@ -70,5 +69,5 @@ module.exports = class Owoify extends Plugin {
         uninject("owoifierSend");
         powercord.api.commands.unregisterCommand('toggleowo');
         powercord.api.commands.unregisterCommand('owo');
-    }    
+    }
 };
