@@ -2,29 +2,38 @@ const { React } = require('powercord/webpack');
 const { FormTitle } = require('powercord/components');
 const { SwitchItem, RadioGroup } = require('powercord/components/settings');
 
-module.exports = class OwoifierSettings extends React.PureComponent {  
+module.exports = class OwoifierSettings extends React.PureComponent {
     constructor(props) {
         super(props)
 
         this.state = {
             owoLevel: this.props.getSetting('owoLevel','owo'),
-            owoEnabled: this.props.getSetting('owoEnabled', false)
+            owoEnabled: this.props.getSetting('owoEnabled', false),
+            keepCodeBlocks: this.props.getSetting('keepCodeBlocks', true)
         }
     }
 
     render() {
         return <>
         <SwitchItem
-        note="Auto owoify toggle."
         value={ this.state.owoEnabled }
         onChange={ () => {
           this.setState({ owoEnabled: !this.state.owoEnabled });
-          this.props.toggleSetting('owoEnabled');          
+          this.props.toggleSetting('owoEnabled');
         }}
       >
-        Enable
-      </SwitchItem>        
-      <RadioGroup
+            Auto owoify text
+      </SwitchItem>
+            <SwitchItem
+                value={ this.state.keepCodeBlocks }
+                onChange={ () => {
+                    this.setState({ keepCodeBlocks: !this.state.keepCodeBlocks });
+                    this.props.toggleSetting('keepCodeBlocks');
+                }}
+            >
+                Don't owoify code blocks
+            </SwitchItem>
+            <RadioGroup
         disabled={ false }
         options={ [
           { name: 'owo',
