@@ -1,0 +1,11 @@
+.owoifierPreviewBar-hidden {
+	display: none;
+}
+
+.owoifierPreviewBar-visible {
+	display: flex;
+}
+
+.owoifierPreviewBar {
+	background-color: blueviolet;
+}

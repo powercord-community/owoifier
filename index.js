@@ -1,12 +1,16 @@
 const { Plugin } = require('powercord/entities');
-const { getModule, React } = require('powercord/webpack');
+const { getModule, getModuleByDisplayName, React } = require('powercord/webpack');
 const { inject, uninject } = require('powercord/injector');
+const { forceUpdateElement } = require('powercord/util');
 const owoify = require('owoify-js').default;
 
 const Settings = require('./components/Settings');
+const previewBar = require('./components/previewBar');
 
 module.exports = class Owoify extends Plugin {
     async startPlugin() {
+        this.loadStylesheet('./style.css');
+        
         powercord.api.settings.registerSettings(this.entityID, {
             category: this.entityID,
             label: 'Owoifier',
@@ -48,6 +52,33 @@ module.exports = class Owoify extends Plugin {
             return args;
         }, true);
 
+        const TypingUsers = await getModule(m => m.default && m.default.displayName === 'FluxContainer(TypingUsers)');
+
+        inject('owoifier-text-indicator', TypingUsers.default.prototype, 'render', (args, res) => React.createElement(
+            React.Fragment, null, res, React.createElement(previewBar, { 
+                text: '',
+                getSetting: this.settings.get
+            })
+        ));
+
+        const SlateChannelTextArea = await getModuleByDisplayName('SlateChannelTextArea');
+
+        inject('owoifier-text-hook', SlateChannelTextArea.prototype, 'render', (args, res) => {
+            setTimeout(() => {
+                if (parentThis.settings.get('owoEnabled', false)) { //we only need to show the preview when auto is enabled
+                    const ta = document.querySelector('[data-slate-editor="true"]')?.innerText;
+                    if(!ta.startsWith(powercord.api.commands.prefix) && ta) { //no commandos baby
+                        parentThis.settings.set('owopreviewtext', owoifyText(ta));
+                    } else {
+                        parentThis.settings.set('owopreviewtext', '');
+                    }
+                }       
+            });
+            return res;
+        });
+
+        
+
         powercord.api.commands.registerCommand({
             command: 'owo',
             description: 'owoify your message',
@@ -67,7 +98,10 @@ module.exports = class Owoify extends Plugin {
     pluginWillUnload() {
         powercord.api.settings.unregisterSettings(this.entityID);
         uninject("owoifierSend");
+        uninject("owoifier-text-hook");
+        uninject("owoifier-text-indicator");
         powercord.api.commands.unregisterCommand('toggleowo');
-        powercord.api.commands.unregisterCommand('owo');
+        powercord.api.commands.unregisterCommand('owo');        
+        forceUpdateElement(`.${getModule([ 'FluxContainer(TypingUsers)' ], false)}`);
     }
 };
